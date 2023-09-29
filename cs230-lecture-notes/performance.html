@@ -23,4 +23,71 @@ to Assembly there are some other metrics we like to use.
 These are all self explanatory. Generally, we mostly affect performance through algorithm design and data structure choices.
 <br></br>
 <h2>Measuring Performance</h2>
-We can break down most performance metrics into two kinds of categories.
+We can break down most performance metrics into two kinds of categories:
+<ul>
+    <li>Response Time related metrics</li>
+    <li>Throughput related metrics</li>
+</ul>
+<i>Response time</i> is how long it takes a machine to execute and complete a given task (e.g. program <i>y</i> takes <i>k</i> seconds to 
+execute on a given machine), and <i>throughput</i> is described as total work done per unit of time (for example, calculations per second, etc.).
+<h3>Response Time</h3>
+If we define performance as the inverse of the execution time of a program, then it becomes easy to compare the performance of two objects. A 
+common way of comparing the performance of two things is saying that <i>X</i> is <i>n</i> times faster than <i>Y</i>. We can calculate this:
+<br></br>
+
+<div style="text-align: center;">
+    <img src=img/relativePerformance.png width=300>
+</div>
+
+<h3>Measuring Execution Time</h3>
+Execution time is measured in two main ways, <i>real-time</i> and <i>CPU time</i>. <i>Real time</i>, also referred to as "clock time", is the literal 
+amount of time that passes between calling a program and it finishing. <i>CPU time</i> is the time the processor takes to complete a given job, and doesn't 
+include I/O time, or the time the CPU will spend doing other jobs while a given program is being executed. CPU execution time is usually slightly 
+smaller than real time execution time. 
+<br></br> 
+There is also a third, but less useful measurement of execution time, <i>OS time</i>. This is time the operating system 
+spends calling the program, loading instructions, allocating memory, and cleaning up after the program is done. It usually makes up a fraction of the 
+clock execution time of a program, will vary greatly between different programs and different systems, and isn't really a useful measurement 
+of the performance of a program.
+<h3>CPU Clocking and Time</h3>
+Everything a CPU does revolves around its clock. A CPU clock refers to how many cycles it performs in a given time frame, usually measured in Hz. For example, 
+modern processors are usually clocked between 3.2 GHz and 4.2 GHz, with the speed changing depending on the workload the processor is under. Logically, it is 
+more power efficient for a CPU to have a lower clock speed when at idle, so modern processors take advantage of this and throttle up or down their clocks depending 
+on demand. For simplicity's sake, we will usually assume the clock rate of a CPU to be constant in this class.
+<br></br>
+We can use the above to our advantage. CPU time can be represented as the product of the number clock cycles and the time it takes to complete one clock cycle, or as the quotient 
+of the number of clock cycles and the clock rate. 
+<br></br>
+For example, say on Computer <i>A</i>, we have a CPU with a 2GHz clock, and program <i>X</i> takes 10 seconds to execute on it. If we 
+want to design a CPU for Computer <i>B</i> so that program <i>X</i> will take 6 seconds to execute, what does the clock rate of CPU <i>B</i>
+need to be? We can easily find this:
+<br></br>
+
+<div style="text-align: center;">
+    <img src=img/cpuTimeExample.png width=400>
+</div>
+
+<h3>Instruction Count and CPI</h3>
+Two more important metrics of the performance of a system are the instruction count and cycles-per-instruction (CPI):
+<br><br>
+<b>Instruction Count</b> is the literal number of assembly instructions that are required to execute a given program. This depends 
+on the <i>Instruction Set Architecture</i> of a processor, which will change from system to system (we will use the ARM instruction 
+set LEGv8 in this class).
+<br></br>
+<b>CPI</b> is the number of CPU cycles required to complete a particular instruction. This will be determined by the CPU's architecture, clock rate, and other 
+hardware implementation choices, and will vary from instruction to instruction. Some will require one cycle, others will require many more. For the purposes of calculating 
+performance, we will usually take the average CPI value of an entire program rather than focusing on any particular instruction.
+<br></br>
+Often for this class, you will be given something like:
+<ul>
+    <li>A program has three classes of instructions, A, B, and C</li>
+    <li>20% of instructions for a program are class A, 40% are class B, and 40% are class C</li>
+    <li>Class A instructions take 1 cycle to execute, Class B takes 2, and Class C takes 3</li>
+    <li>What is the average CPI for the program?</li>
+    <li>How many clock cycles are needed to execute the program?</li>
+    <li>If a CPU runs at 1 MHz, how long will it take to execute the program?</li>
+</ul>
+This is all simple arithmetic, just keep in mind the relationships between instruction count, CPI, cycle time, and clock rate. It's all 
+basic arithmetic from there.
+<br>
+<h2>Common Performance Benchmarks</h2>
