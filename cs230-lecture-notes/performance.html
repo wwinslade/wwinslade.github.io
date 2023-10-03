@@ -3,7 +3,7 @@
 <h3>
     <ul>
         <li><a href="main.html">Back to Main Lecture Notes</a></li>
-        <li>Last Updated: 9/27/2023</li>
+        <li>Last Updated: 10/3/2023</li>
     </ul>
 </h3>
 <hr>
@@ -12,7 +12,7 @@ As computer scientists, we always want to design programs and software with effi
 A big part of this is time complexity (Big-O) when dealing with CS on a High Level Language basis, but when it comes 
 to Assembly there are some other metrics we like to use.
 <br>
-
+<hr>
 <h2>Factors Affecting Performance</h2>
 <ul>
     <li>The algorithm you implement</li>
@@ -90,4 +90,31 @@ Often for this class, you will be given something like:
 This is all simple arithmetic, just keep in mind the relationships between instruction count, CPI, cycle time, and clock rate. It's all 
 basic arithmetic from there.
 <br>
+<hr>
 <h2>Common Performance Benchmarks</h2>
+<h3>SPEC CPU Benchmark</h3>
+The SPEC CPU benchmark is an industry standard program that is supposed to emulate a normal CPU workload by feeding a given processor 
+a selection of programs to execute, measuring the execution time of a given processor, then normalizing that figure to a reference processor, 
+or baseline. The ratios of the measured execution time to the reference can then be given as a geometric mean, which winds up giving us a 
+nice, comprehendable number that we can associate with a processors performance.
+<br></br>
+The programs that the SPEC benchmark runs are designed to have negligable I/O, so they can more closely measure CPU execution time to make the 
+benchmark more about the processor and less about its supporting cast.
+<h3>SPEC Power Benchmark</h3>
+The SPEC power benchmark is used to measure the power consumption of a server at different workload levels. It in essence measures the 
+mean ssj_ops per Watt of power consumed. The higher this ratio is, the better a server's performance for any given Watt of energy it consumes. 
+This is especially important for data center applications; while it is a giant up-front cost to construct a data center, the long term cost of 
+the power necessary for a company to operate the datacenter is directly proportional to the amount of energy the machines in the center need to 
+perform any given task they may encounter.
+<br>
+<hr>
+<h2>A Quick Note on <i>Amdahl's Law</i></h2>
+Amdahl's law essentially carves into stone something that should be fairly obvious. Amdahl's Law essentially states that the overall performance 
+improvement gained by improving a single part of a system is limited by the fraction of time that the improved part is actually used.
+<br></br>
+For example, if you make your file I/O operations take half as much time as previously, but you only are doing file I/O operations for 20% of the time it takes to run any 
+given program, then in reality, you are not decreasing the overall execution time by half, but instead by about 11%. See the formula below for how to calculate this:
+<br></br>
+<div style="text-align: center;">
+    <img src=img/amdahls.png width=400>
+</div>
